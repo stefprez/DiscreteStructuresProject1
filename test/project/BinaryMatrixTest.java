@@ -34,6 +34,9 @@ public class BinaryMatrixTest {
 		
 		bm.setValue(2, 2, false);
 		assertFalse(bm.isReflexive());
+		
+		bm = new BinaryMatrix();
+		assertTrue(bm.isReflexive());
 	}
 	
 	@Test
@@ -50,6 +53,9 @@ public class BinaryMatrixTest {
 		bm.setValue(0, 1, true);
 		
 		assertFalse(bm.isSymmetric());
+		
+		bm = new BinaryMatrix();
+		assertTrue(bm.isSymmetric());
 
 	}
 	
@@ -73,7 +79,8 @@ public class BinaryMatrixTest {
 	}
 	
 	@Test
-	public void testMakeIdentityMatrix() throws Exception {
+	public void testMakeIdentityMatrix() throws Exception 
+	{
 		BinaryMatrix bm = new BinaryMatrix(3);
 		bm.setValue(0, 1, true);
 		bm.makeIdentityMatrix();
@@ -95,7 +102,35 @@ public class BinaryMatrixTest {
 				}
 			}
 		}
+	}
+	
+	@Test
+	public void testIsEmptyRelation() throws Exception {
+		BinaryMatrix bm = new BinaryMatrix(3);
+		assertTrue(bm.isEmptyRelation());
+		bm.setValue(1, 1, true);
+		assertFalse(bm.isEmptyRelation());
 		
+	}
+	
+	@Test
+	public void testIsTransitive() throws Exception {
+		
+		BinaryMatrix bm = new BinaryMatrix();
+		assertTrue(bm.isTransitive());
+		
+		bm = new BinaryMatrix(5);
+		
+		fail();
+		
+	}
+	
+	@Test
+	public void testIsEmptySet() throws Exception {
+		BinaryMatrix bm = new BinaryMatrix(3);
+		assertFalse(bm.isEmptySet());
+		bm = new BinaryMatrix(0);
+		assertTrue(bm.isEmptySet());
 	}
 	
 	

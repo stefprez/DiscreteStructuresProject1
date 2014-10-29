@@ -3,36 +3,36 @@ package project;
 public class BinaryMatrix {
 	boolean[][] matrix;
 	int sizeOfMatrix;
-	
+
 	public BinaryMatrix(int sizeOfMatrix)
 	{
 		this.sizeOfMatrix = sizeOfMatrix;
 		matrix = new boolean[sizeOfMatrix][sizeOfMatrix];
 	}
-	
+
 	public BinaryMatrix()
 	{
 		this(0);
 	}
-	
+
 	public boolean[][] getMatrix() {
 		return matrix;
 	}
-	
+
 	public void setValue(int rowToSet, int columnToSet, boolean valueToSet)
 	{
 		matrix[rowToSet][columnToSet] = valueToSet;
 	}
-	
+
 	public boolean getValue(int rowToReturn, int columnToReturn)
 	{
 		return matrix[rowToReturn][columnToReturn];
 	}
-	
+
 	public int getSizeOfMatrix() {
 		return sizeOfMatrix;
 	}
-	
+
 	public void print()
 	{
 		boolean[][] matrixToPrint = this.getMatrix();
@@ -45,48 +45,67 @@ public class BinaryMatrix {
 		}
 	}
 	
-	public boolean isReflexive()
+	public boolean isEmptySet()
 	{
-		int iterator;
-		
-		for (iterator = 0; iterator < sizeOfMatrix; iterator++)
-		{
-			if (!this.getValue(iterator, iterator))
-			{
-				return false;
-			}
-		}
-		
-		return true;
+		return (sizeOfMatrix == 0);
 	}
 	
+	public boolean isReflexive()
+	{
+		if (this.isEmptySet())
+		{
+			return true;
+		}
+		else
+		{
+			int iterator;
+
+			for (iterator = 0; iterator < sizeOfMatrix; iterator++)
+			{
+				if (!this.getValue(iterator, iterator))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+	}
+
 	public boolean isSymmetric()
 	{
-		int rowIterator;
-		int columnIterator;
-		
-		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++)
+		if (this.isEmptySet())
 		{
-			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++)
+			return true;
+		}
+		else
+		{
+			int rowIterator;
+			int columnIterator;
+
+			for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++)
 			{
-				if (this.getValue(rowIterator, columnIterator))
+				for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++)
 				{
-					if (!this.getValue(columnIterator, rowIterator))
+					if (this.getValue(rowIterator, columnIterator))
 					{
-						return false;
+						if (!this.getValue(columnIterator, rowIterator))
+						{
+							return false;
+						}
 					}
 				}
 			}
+
+			return true;
 		}
-		
-		return true;
 	}
-	
+
 	public boolean isAntisymmetric()
 	{
 		int rowIterator;
 		int columnIterator;
-		
+
 		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++)
 		{
 			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++)
@@ -100,15 +119,15 @@ public class BinaryMatrix {
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public void makeIdentityMatrix()
 	{
 		int rowIterator;
 		int columnIterator;
-		
+
 		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++)
 		{
 			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++)
@@ -124,10 +143,32 @@ public class BinaryMatrix {
 			}
 		}
 	}
-	
-	
-	
+
+	public boolean isEmptyRelation()
+	{
+		int rowIterator;
+		int columnIterator;
+
+		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++)
+		{
+			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++)
+			{
+				if (this.getValue(rowIterator, columnIterator))
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public static void main(String[] args) {
 		new BinaryMatrix(6).print();
+	}
+
+	public boolean isTransitive() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
