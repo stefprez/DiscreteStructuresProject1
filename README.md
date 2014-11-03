@@ -5,8 +5,11 @@ Evaluating relations of Binary Matricies
 
 Following Assignment By: Dr. Michael Zeiger of Eastern Michigan University
 
+
 COSC 314
+
 Program on Relations
+
 Due: Mon, Nov.10, 2014
 
 Given a relation r on the set A = {1,2,3,4,5,6,7,8}. You are to write one program 
@@ -61,5 +64,7 @@ my website http://people.emich.edu/mzeiger as an input to your program. If you w
 hand in a hardcopy of
 
 a) your program (properly documented)
+
 b) the inputs
+
 c) the results of running the program for the 6 test cases
