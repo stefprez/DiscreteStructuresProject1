@@ -8,72 +8,72 @@ import org.junit.Test;
 public class BinaryMatrixTest {
 	@Test
 	public void testSetValue() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		assertEquals(false, bm.getValue(0, 0));
-		assertEquals(false, bm.getValue(2, 1));
-		assertEquals(false, bm.getValue(1, 2));
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		assertEquals(false, binaryMatrix.getValue(0, 0));
+		assertEquals(false, binaryMatrix.getValue(2, 1));
+		assertEquals(false, binaryMatrix.getValue(1, 2));
 		
-		bm.setValue(0, 0, true);
-		assertEquals(true, bm.getValue(0, 0));
+		binaryMatrix.setValue(0, 0, true);
+		assertEquals(true, binaryMatrix.getValue(0, 0));
 		
-		bm.setValue(1, 2, true);
-		assertEquals(true, bm.getValue(1, 2));
+		binaryMatrix.setValue(1, 2, true);
+		assertEquals(true, binaryMatrix.getValue(1, 2));
 		
-		bm.setValue(2, 1, true);
-		assertEquals(true, bm.getValue(2, 1));
+		binaryMatrix.setValue(2, 1, true);
+		assertEquals(true, binaryMatrix.getValue(2, 1));
 	}
 	
 	@Test
 	public void testIsReflexive() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		bm.setValue(0, 0, true);
-		bm.setValue(1, 1, true);
-		bm.setValue(2, 2, true);
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		binaryMatrix.setValue(2, 2, true);
 		
-		assertTrue(bm.isReflexive());
+		assertTrue(binaryMatrix.isReflexive());
 		
-		bm.setValue(2, 2, false);
-		assertFalse(bm.isReflexive());
+		binaryMatrix.setValue(2, 2, false);
+		assertFalse(binaryMatrix.isReflexive());
 		
-		bm = new BinaryMatrix();
-		assertTrue(bm.isReflexive());
+		binaryMatrix = new BinaryMatrix();
+		assertTrue(binaryMatrix.isReflexive());
 	}
 	
 	@Test
 	public void testIsSymmetric() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		bm.setValue(0, 0, true);
-		bm.setValue(1, 1, true);
-		bm.setValue(2, 2, true);
-		bm.setValue(2, 1, true);
-		bm.setValue(1, 2, true);
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		binaryMatrix.setValue(2, 2, true);
+		binaryMatrix.setValue(2, 1, true);
+		binaryMatrix.setValue(1, 2, true);
 		
-		assertTrue(bm.isSymmetric());
+		assertTrue(binaryMatrix.isSymmetric());
 		
-		bm.setValue(0, 1, true);
+		binaryMatrix.setValue(0, 1, true);
 		
-		assertFalse(bm.isSymmetric());
+		assertFalse(binaryMatrix.isSymmetric());
 		
-		bm = new BinaryMatrix();
-		assertTrue(bm.isSymmetric());
+		binaryMatrix = new BinaryMatrix();
+		assertTrue(binaryMatrix.isSymmetric());
 
 	}
 	
 	@Test
 	public void testIsAntisymmetric() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		bm.setValue(0, 0, true);
-		bm.setValue(1, 1, true);
-		bm.setValue(2, 2, true);
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		binaryMatrix.setValue(2, 2, true);
 		
-		assertTrue(bm.isAntisymmetric());
+		assertTrue(binaryMatrix.isAntisymmetric());
 		
-		bm.setValue(0, 1, true);
+		binaryMatrix.setValue(0, 1, true);
 		
-		assertTrue(bm.isAntisymmetric());
+		assertTrue(binaryMatrix.isAntisymmetric());
 		
-		bm.setValue(1, 0, true);
-		assertFalse(bm.isAntisymmetric());
+		binaryMatrix.setValue(1, 0, true);
+		assertFalse(binaryMatrix.isAntisymmetric());
 
 
 	}
@@ -81,21 +81,21 @@ public class BinaryMatrixTest {
 	@Test
 	public void testMakeIdentityMatrix() throws Exception 
 	{
-		BinaryMatrix bm = new BinaryMatrix(3);
-		bm.setValue(0, 1, true);
-		bm.makeIdentityMatrix();
-		assertTrue(bm.isReflexive());
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.makeIdentityMatrix();
+		assertTrue(binaryMatrix.isReflexive());
 		
 		int rowIterator;
 		int columnIterator;
 		
-		for (rowIterator = 0; rowIterator < bm.getSizeOfMatrix(); rowIterator++)
+		for (rowIterator = 0; rowIterator < binaryMatrix.getSizeOfMatrix(); rowIterator++)
 		{
-			for (columnIterator = 0; columnIterator < bm.getSizeOfMatrix(); columnIterator++)
+			for (columnIterator = 0; columnIterator < binaryMatrix.getSizeOfMatrix(); columnIterator++)
 			{
 				if (rowIterator != columnIterator)
 				{
-					if (bm.getValue(rowIterator, columnIterator))
+					if (binaryMatrix.getValue(rowIterator, columnIterator))
 					{
 						fail();
 					}
@@ -106,31 +106,40 @@ public class BinaryMatrixTest {
 	
 	@Test
 	public void testIsEmptyRelation() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		assertTrue(bm.isEmptyRelation());
-		bm.setValue(1, 1, true);
-		assertFalse(bm.isEmptyRelation());
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		assertTrue(binaryMatrix.isEmptyRelation());
+		binaryMatrix.setValue(1, 1, true);
+		assertFalse(binaryMatrix.isEmptyRelation());
 		
 	}
 	
 	@Test
 	public void testIsTransitive() throws Exception {
 		
-		BinaryMatrix bm = new BinaryMatrix();
-		assertTrue(bm.isTransitive());
+		BinaryMatrix binaryMatrix = new BinaryMatrix();
+		assertTrue(binaryMatrix.isTransitive());
 		
-		bm = new BinaryMatrix(5);
+		binaryMatrix = new BinaryMatrix(2);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.setValue(1, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		assertTrue(binaryMatrix.isTransitive());
 		
-		fail();
+		binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 2, true);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.setValue(1, 2, true);
+		assertTrue(binaryMatrix.isTransitive());
 		
 	}
 	
 	@Test
 	public void testIsEmptySet() throws Exception {
-		BinaryMatrix bm = new BinaryMatrix(3);
-		assertFalse(bm.isEmptySet());
-		bm = new BinaryMatrix(0);
-		assertTrue(bm.isEmptySet());
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		assertFalse(binaryMatrix.isEmptySet());
+		binaryMatrix = new BinaryMatrix(0);
+		assertTrue(binaryMatrix.isEmptySet());
 	}
 	
 	
