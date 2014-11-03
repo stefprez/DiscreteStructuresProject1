@@ -22,7 +22,9 @@ Boolean matrix of the transitive closure of r.
 
 The relation with matrix
 
+
  (output matrix here)
+ 
 
  is not reflexive,
  
@@ -37,7 +39,9 @@ The relation with matrix
  
  The relation with matrix
  
+ 
  (output matrix here)
+
 
  is reflexive,
  
@@ -54,7 +58,9 @@ The relation with matrix
  
  The relation with matrix
  
+ 
  (output matrix here)
+
 
  is reflexive,
  
@@ -68,8 +74,10 @@ The relation with matrix
  
  The matrix of its transitive closure is
 
+
  (output that matrix here)
  
+
 
 The program may be written in either JAVA or C++ and should input the 8 by 8 Boolean 
 matrix of r from a file. Use each of the 6 test matrices found in the file Relations.doc on 
