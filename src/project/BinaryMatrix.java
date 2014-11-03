@@ -13,6 +13,11 @@ public class BinaryMatrix {
 		this(0);
 	}
 
+	public BinaryMatrix(BinaryMatrix binaryMatrixToCopy) {
+		this.sizeOfMatrix = binaryMatrixToCopy.getSizeOfMatrix();
+		this.matrix = binaryMatrixToCopy.getMatrix();
+	}
+
 	public boolean[][] getMatrix() {
 		return matrix;
 	}
@@ -28,9 +33,8 @@ public class BinaryMatrix {
 	public int getSizeOfMatrix() {
 		return sizeOfMatrix;
 	}
-	
-	public void printBinary()
-	{
+
+	public void printBinary() {
 		boolean[][] matrixToPrint = this.getMatrix();
 		for (boolean[] rowOfMatrix : matrixToPrint) {
 			for (boolean columnOfMatrix : rowOfMatrix) {
@@ -39,7 +43,7 @@ public class BinaryMatrix {
 				else
 					System.out.print("0 ");
 			}
-			//New row
+			// New row
 			System.out.println();
 		}
 	}
@@ -154,7 +158,8 @@ public class BinaryMatrix {
 				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
 					// If A is related to B
 					if (this.getValue(rowIterator, columnIterator)) {
-						//Iterate through matrix to find possible relations of B
+						// Iterate through matrix to find possible relations of
+						// B
 						for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) {
 							if (this.getValue(columnIterator,
 									secondColumnIterator)) {
@@ -171,5 +176,85 @@ public class BinaryMatrix {
 
 			return true;
 		}
+	}
+
+	public boolean isEquivalenceRelation() {
+		return (this.isReflexive() && this.isSymmetric() && this.isTransitive());
+	}
+
+	public BinaryMatrix getTransitiveClosure() {
+		if (this.isTransitive()) {
+			return this;
+		} else {
+			BinaryMatrix transitiveClosure = new BinaryMatrix(this);
+
+			while (!transitiveClosure.isTransitive()) {
+				// Iterate through matrix
+				for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+					for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+						// If A is related to B
+						if (transitiveClosure.getValue(rowIterator,
+								columnIterator)) {
+							// Iterate through matrix to find possible relations
+							// of B
+							for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) {
+								if (transitiveClosure.getValue(columnIterator,
+										secondColumnIterator)) {
+									// If B is not related to C, make B related
+									// to C
+									if (!transitiveClosure.getValue(
+											rowIterator, secondColumnIterator)) {
+										transitiveClosure.setValue(rowIterator,
+												secondColumnIterator, true);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return transitiveClosure;
+		}
+	}
+	
+	public void printReport()
+	{
+		System.out.println("The relation with the matrix:\n");
+		this.printBinary();
+		System.out.println();
+		
+		if (this.isReflexive())
+			System.out.println("is reflexive,");
+		else
+			System.out.println("is not reflexive,");
+		
+		if (this.isSymmetric())
+			System.out.println("is symmetric,");
+		else
+			System.out.println("is not symmetric,");
+		
+		if (this.isTransitive())
+			System.out.println("is transitive,");
+		else
+			System.out.println("is not transitive,");
+		
+		if (this.isAntisymmetric())
+			System.out.println("is antisymmetric,");
+		else
+			System.out.println("is not antisymmetric,");
+		
+		if (this.isEquivalenceRelation())
+			System.out.println("and is an equivalence relation with equivalence classes");
+//			this.printEquivalenceClasses();
+		else
+			System.out.println("and is not an equivalence relation.");
+		
+		if (!this.isTransitive())
+		{
+			System.out.println("The matrix of its transitive closure is:\n");
+			this.getTransitiveClosure().printBinary();
+		}
+		
+		System.out.println();
 	}
 }

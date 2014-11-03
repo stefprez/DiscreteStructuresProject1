@@ -142,6 +142,50 @@ public class BinaryMatrixTest {
 		assertTrue(binaryMatrix.isEmptySet());
 	}
 	
+	@Test
+	public void testIsEquivalenceRelation() throws Exception {
+		BinaryMatrix binaryMatrix = new BinaryMatrix(2);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.setValue(1, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		assertTrue(binaryMatrix.isEquivalenceRelation());
+	}
 	
+	@Test
+	public void testTransitiveClosure() throws Exception {
+		BinaryMatrix binaryMatrix = new BinaryMatrix(2);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.setValue(1, 0, true);
+		assertFalse(binaryMatrix.isTransitive());
+		BinaryMatrix transitiveClosure = binaryMatrix.getTransitiveClosure();
+		assertTrue(transitiveClosure.getValue(1, 1));
+		assertTrue(transitiveClosure.isTransitive());
+
+		binaryMatrix = new BinaryMatrix(8);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(0, 3, true);
+		binaryMatrix.setValue(0, 7, true);
+		binaryMatrix.setValue(1, 1, true);
+		binaryMatrix.setValue(1, 5, true);
+		binaryMatrix.setValue(2, 2, true);
+		binaryMatrix.setValue(3, 2, true);
+		binaryMatrix.setValue(3, 7, true);
+		binaryMatrix.setValue(4, 4, true);
+		binaryMatrix.setValue(4, 6, true);
+		binaryMatrix.setValue(5, 5, true);
+		binaryMatrix.setValue(6, 1, true);
+		binaryMatrix.setValue(6, 5, true);
+		binaryMatrix.setValue(6, 6, true);
+		binaryMatrix.setValue(7, 3, true);
+		binaryMatrix.setValue(7, 4, true);
+		binaryMatrix.setValue(7, 5, true);
+
+		transitiveClosure = binaryMatrix.getTransitiveClosure();
+		assertTrue(transitiveClosure.isTransitive());
+
+		
+	}
 	
 }

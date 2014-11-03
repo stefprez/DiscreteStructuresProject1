@@ -6,50 +6,70 @@ import java.util.Scanner;
 
 public class FileReader {
 
-	public Scanner openFileWithPrompt() {
-
-		Scanner scanner = null;
-		try {
-			scanner = new Scanner(new File("temp.txt"));
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return scanner;
+	static final BinaryMatrix readFileAndReturnBinaryMatrix(String filePath) {
+		return convertFileInputToBinaryMatrix(filePath);
 	}
 
-	public BinaryMatrix convertFileInputToBinaryMatrix(Scanner file) {
+	static final void printCodeForInitializingBinaryMatrix(String filePath) {
+		BinaryMatrix binaryMatrixToInitialize = readFileAndReturnBinaryMatrix(filePath);
+		int sizeOfMatrix = binaryMatrixToInitialize.getSizeOfMatrix();
+		System.out.println("BinaryMatrix binaryMatrix = new BinaryMatrix("
+				+ sizeOfMatrix + ");");
 
-		int sizeOfMatrix = file.nextLine().length();
-		file.close();
+		for (int row = 0; row < binaryMatrixToInitialize.getSizeOfMatrix(); row++) {
+			for (int column = 0; column < binaryMatrixToInitialize
+					.getSizeOfMatrix(); column++)
+			{
+				if(binaryMatrixToInitialize.getValue(row, column))
+				{
+					System.out.println("binaryMatrix.setValue(" + row + ", " + column + ", true);");
+				}
+			}
+		}
+	}
 
+	private static Scanner makeScannerToReadFromTempFile(String filePath) {
+		Scanner scannerToReturn = null;
 		try {
-			file = new Scanner(new File("temp.txt"));
+			scannerToReturn = new Scanner(new File(filePath));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		String line;
+		return scannerToReturn;
+	}
+
+	private static BinaryMatrix convertFileInputToBinaryMatrix(String filePath) {
+
+		Scanner sizeDeterminer = makeScannerToReadFromTempFile(filePath);
+
+		int sizeOfMatrix = 0;
+
+		while (sizeDeterminer.hasNextLine()) {
+			sizeOfMatrix++;
+			sizeDeterminer.nextLine();
+		}
+
+		sizeDeterminer.close();
+
+		Scanner file = makeScannerToReadFromTempFile(filePath);
+
 		BinaryMatrix binaryMatrixToReturn = new BinaryMatrix(sizeOfMatrix);
 
 		for (int row = 0; row < binaryMatrixToReturn.getSizeOfMatrix(); row++) {
-			line = file.nextLine();
-
-			if (line.length() != sizeOfMatrix) {
-				System.err
-						.println("Invalid Input for convertFileInputToBinaryMatrix;");
-				System.exit(0);
-			}
 
 			for (int column = 0; column < binaryMatrixToReturn
 					.getSizeOfMatrix(); column++) {
-				int digit = Integer
-						.parseInt(line.substring(column, column + 1));
+				int digit = file.nextInt();
 
-				if (digit == 0) {
+				if (digit == 1) {
+					binaryMatrixToReturn.setValue(row, column, true);
+				} else if (digit == 0) {
 					binaryMatrixToReturn.setValue(row, column, false);
 				} else {
-					binaryMatrixToReturn.setValue(row, column, true);
+					System.err
+							.println("Invalid Input. Check temp.txt for proper formatting.");
+					System.exit(0);
 				}
 			}
 		}
