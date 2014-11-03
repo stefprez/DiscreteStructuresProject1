@@ -25,9 +25,13 @@ The relation with matrix
  (output matrix here)
 
  is not reflexive,
+ 
  is not symmetric,
+ 
  is transitive,
+ 
  is antisymmetric,
+ 
  is not an equivalence relation
  
  
@@ -36,9 +40,13 @@ The relation with matrix
  (output matrix here)
 
  is reflexive,
+ 
  is symmetric,
+ 
  is transitive,
+ 
  is not antisymmetric,
+ 
  is an equivalence relation with equivalence classes
 
  {1,5,8}, {2,4}, {3,7}, {6}
@@ -49,10 +57,15 @@ The relation with matrix
  (output matrix here)
 
  is reflexive,
+ 
  is not symmetric,
+ 
  is not antisymmetric,
+ 
  is not transitive,
+ 
  is not an equivalence relation
+ 
  The matrix of its transitive closure is
 
  (output that matrix here)
