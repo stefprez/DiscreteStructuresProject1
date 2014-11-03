@@ -68,7 +68,7 @@ public class FileReader {
 					binaryMatrixToReturn.setValue(row, column, false);
 				} else {
 					System.err
-							.println("Invalid Input. Check temp.txt for proper formatting.");
+							.println("Invalid Input. Check input file for proper formatting.");
 					System.exit(0);
 				}
 			}
