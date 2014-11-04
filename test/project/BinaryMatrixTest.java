@@ -188,4 +188,16 @@ public class BinaryMatrixTest {
 		
 	}
 	
+	@Test
+	public void testEquivalenceClasses() throws Exception {
+		BinaryMatrix binaryMatrix = new BinaryMatrix(3);
+		binaryMatrix.setValue(0, 0, true);
+		binaryMatrix.setValue(0, 1, true);
+		binaryMatrix.setValue(1, 0, true);
+		binaryMatrix.setValue(1, 1, true);
+		binaryMatrix.setValue(2, 2, true);
+		assertTrue(binaryMatrix.isTransitive());
+		System.out.println(binaryMatrix.getEquivalenceClasses());
+	}
+	
 }

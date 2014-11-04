@@ -1,12 +1,20 @@
 package project;
 
+import java.util.ArrayList;
+
 public class BinaryMatrix {
 	boolean[][] matrix;
 	int sizeOfMatrix;
+	ArrayList<ArrayList<Integer>> equivalenceClasses;
 
 	public BinaryMatrix(int sizeOfMatrix) {
 		this.sizeOfMatrix = sizeOfMatrix;
 		matrix = new boolean[sizeOfMatrix][sizeOfMatrix];
+		equivalenceClasses = null;
+	}
+
+	public ArrayList<ArrayList<Integer>> getEquivalenceClasses() {
+		return equivalenceClasses;
 	}
 
 	public BinaryMatrix() {
@@ -16,6 +24,7 @@ public class BinaryMatrix {
 	public BinaryMatrix(BinaryMatrix binaryMatrixToCopy) {
 		this.sizeOfMatrix = binaryMatrixToCopy.getSizeOfMatrix();
 		this.matrix = binaryMatrixToCopy.getMatrix();
+		this.equivalenceClasses = binaryMatrixToCopy.getEquivalenceClasses();
 	}
 
 	public boolean[][] getMatrix() {
@@ -149,9 +158,10 @@ public class BinaryMatrix {
 	}
 
 	public boolean isTransitive() {
-		if (this.isEmptySet())
+		if (this.isEmptySet()) {
+			equivalenceClasses = new ArrayList<ArrayList<Integer>>();
 			return true;
-		else {
+		} else {
 
 			// Iterate through matrix
 			for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
@@ -174,8 +184,35 @@ public class BinaryMatrix {
 				}
 			}
 
+			equivalenceClasses = this.calculateEquivalenceClasses();
 			return true;
 		}
+	}
+
+	private ArrayList<ArrayList<Integer>> calculateEquivalenceClasses() {
+		ArrayList<ArrayList<Integer>> equivalenceClassesToReturn = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> listOfElementsAccountedFor = new ArrayList<Integer>();
+		equivalenceClassesToReturn.add(new ArrayList<Integer>());
+		int equivalenceClassCounter = 0;
+		// Iterate through matrix
+		for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+
+			if ( !listOfElementsAccountedFor.contains(rowIterator))
+			{
+				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+					// If A is related to B
+					if (this.getValue(rowIterator, columnIterator)) {
+						equivalenceClassesToReturn.get(equivalenceClassCounter)
+						.add(columnIterator);
+						listOfElementsAccountedFor.add(columnIterator);
+					}
+				}
+				equivalenceClassCounter++;
+				if(listOfElementsAccountedFor.size() != sizeOfMatrix)
+					equivalenceClassesToReturn.add(new ArrayList<Integer>());
+			}
+		}
+		return equivalenceClassesToReturn;
 	}
 
 	public boolean isEquivalenceRelation() {
@@ -216,45 +253,48 @@ public class BinaryMatrix {
 			return transitiveClosure;
 		}
 	}
-	
-	public void printReport()
-	{
+
+	public void printReport() {
 		System.out.println("The relation with the matrix:\n");
 		this.printBinary();
 		System.out.println();
-		
+
 		if (this.isReflexive())
 			System.out.println("is reflexive,");
 		else
 			System.out.println("is not reflexive,");
-		
+
 		if (this.isSymmetric())
 			System.out.println("is symmetric,");
 		else
 			System.out.println("is not symmetric,");
-		
+
 		if (this.isTransitive())
 			System.out.println("is transitive,");
 		else
 			System.out.println("is not transitive,");
-		
+
 		if (this.isAntisymmetric())
 			System.out.println("is antisymmetric,");
 		else
 			System.out.println("is not antisymmetric,");
-		
+
 		if (this.isEquivalenceRelation())
-			System.out.println("and is an equivalence relation with equivalence classes");
-//			this.printEquivalenceClasses();
+		{
+			System.out
+			.println("and is an equivalence relation with equivalence classes");
+			System.out.println(this.getEquivalenceClasses());
+			// this.printEquivalenceClasses();
+		}
 		else
 			System.out.println("and is not an equivalence relation.");
-		
-		if (!this.isTransitive())
-		{
+
+		if (!this.isTransitive()) {
 			System.out.println("The matrix of its transitive closure is:\n");
 			this.getTransitiveClosure().printBinary();
 		}
-		
+
 		System.out.println();
+
 	}
 }
