@@ -183,8 +183,6 @@ public class BinaryMatrix {
 					}
 				}
 			}
-
-			equivalenceClasses = this.calculateEquivalenceClasses();
 			return true;
 		}
 	}
@@ -216,7 +214,13 @@ public class BinaryMatrix {
 	}
 
 	public boolean isEquivalenceRelation() {
-		return (this.isReflexive() && this.isSymmetric() && this.isTransitive());
+		if (this.isReflexive() && this.isSymmetric() && this.isTransitive())
+		{
+			equivalenceClasses = this.calculateEquivalenceClasses();
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public BinaryMatrix getTransitiveClosure() {
@@ -254,6 +258,25 @@ public class BinaryMatrix {
 		}
 	}
 
+	public void printEquivalenceClasses()
+	{
+		if (!this.isEquivalenceRelation())
+			return;
+		else
+		{
+			String stringToPrint = "";
+			for (ArrayList<Integer> arrayList : equivalenceClasses) {
+				stringToPrint += "{";
+				for (Integer integer : arrayList) {
+					stringToPrint += (integer + 1) + ", ";
+				}
+				stringToPrint = stringToPrint.substring(0, stringToPrint.length() - 2) + "}, ";
+			}
+			stringToPrint = stringToPrint.substring(0, stringToPrint.length() - 2);
+			
+			System.out.println(stringToPrint);
+		}
+	}
 	public void printReport() {
 		System.out.println("The relation with the matrix:\n");
 		this.printBinary();
@@ -283,8 +306,7 @@ public class BinaryMatrix {
 		{
 			System.out
 			.println("and is an equivalence relation with equivalence classes");
-			System.out.println(this.getEquivalenceClasses());
-			// this.printEquivalenceClasses();
+			this.printEquivalenceClasses();
 		}
 		else
 			System.out.println("and is not an equivalence relation.");

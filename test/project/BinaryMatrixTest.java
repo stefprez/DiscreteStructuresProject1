@@ -197,7 +197,7 @@ public class BinaryMatrixTest {
 		binaryMatrix.setValue(1, 1, true);
 		binaryMatrix.setValue(2, 2, true);
 		assertTrue(binaryMatrix.isTransitive());
-		System.out.println(binaryMatrix.getEquivalenceClasses());
+		binaryMatrix.printEquivalenceClasses();
 	}
 	
 }
