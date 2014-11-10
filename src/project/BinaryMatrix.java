@@ -1,3 +1,7 @@
+/**
+ * Stefano Prezioso
+ * COSC 314 Project 1
+ */
 package project;
 
 import java.util.ArrayList;
@@ -12,19 +16,19 @@ public class BinaryMatrix {
 		matrix = new boolean[sizeOfMatrix][sizeOfMatrix];
 		equivalenceClasses = null;
 	}
-
-	public ArrayList<ArrayList<Integer>> getEquivalenceClasses() {
-		return equivalenceClasses;
-	}
-
+	
 	public BinaryMatrix() {
 		this(0);
 	}
-
+	
 	public BinaryMatrix(BinaryMatrix binaryMatrixToCopy) {
 		this.sizeOfMatrix = binaryMatrixToCopy.getSizeOfMatrix();
 		this.matrix = binaryMatrixToCopy.getMatrix();
 		this.equivalenceClasses = binaryMatrixToCopy.getEquivalenceClasses();
+	}
+
+	public ArrayList<ArrayList<Integer>> getEquivalenceClasses() {
+		return equivalenceClasses;
 	}
 
 	public boolean[][] getMatrix() {
@@ -43,8 +47,9 @@ public class BinaryMatrix {
 		return sizeOfMatrix;
 	}
 
-	public void printBinary() {
+	public void printBinaryMatrix() {
 		boolean[][] matrixToPrint = this.getMatrix();
+		
 		for (boolean[] rowOfMatrix : matrixToPrint) {
 			for (boolean columnOfMatrix : rowOfMatrix) {
 				if (columnOfMatrix)
@@ -57,8 +62,9 @@ public class BinaryMatrix {
 		}
 	}
 
-	public void printBoolean() {
+	public void printBooleanMatrix() {
 		boolean[][] matrixToPrint = this.getMatrix();
+		
 		for (boolean[] rowOfMatrix : matrixToPrint) {
 			for (boolean columnOfMatrix : rowOfMatrix) {
 				System.out.print(columnOfMatrix + " ");
@@ -73,111 +79,111 @@ public class BinaryMatrix {
 	}
 
 	public boolean isReflexive() {
-		if (this.isEmptySet()) {
+		
+		if (this.isEmptySet()) 
+		{
 			return true;
-		} else {
-			int iterator;
-
-			for (iterator = 0; iterator < sizeOfMatrix; iterator++) {
-				if (!this.getValue(iterator, iterator)) {
+		} 
+		
+		else 
+		{
+			for (int iterator = 0; iterator < sizeOfMatrix; iterator++) 
+			{
+				if (!this.getValue(iterator, iterator))
 					return false;
-				}
 			}
-
 			return true;
 		}
 	}
 
 	public boolean isSymmetric() {
-		if (this.isEmptySet()) {
+		if (this.isEmptySet()) 
+		{
 			return true;
-		} else {
-			int rowIterator;
-			int columnIterator;
-
-			for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-				for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
-					if (this.getValue(rowIterator, columnIterator)) {
+		} 
+		else 
+		{
+			for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+				{
+					//If rowIterator is related to columnIterator
+					if (this.getValue(rowIterator, columnIterator)) 
+					{
+						//If columnIterator is not related to rowIterator
 						if (!this.getValue(columnIterator, rowIterator)) {
 							return false;
 						}
 					}
 				}
 			}
-
 			return true;
 		}
 	}
 
 	public boolean isAntisymmetric() {
-		int rowIterator;
-		int columnIterator;
-
-		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+		for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+			for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+			{
+				//If rowIterator is related to columnIterator and they're not equal
 				if (this.getValue(rowIterator, columnIterator)
-						&& (rowIterator != columnIterator)) {
-					if (this.getValue(columnIterator, rowIterator)) {
+						&& (rowIterator != columnIterator)) 
+				{
+					//If columnIterator is related to rowIterator
+					if (this.getValue(columnIterator, rowIterator)) 
 						return false;
-					}
 				}
 			}
 		}
-
 		return true;
 	}
 
+	/**
+	 * Helper method used for testing. Turns the BinaryMatrix into
+	 * an Identity Matrix
+	 */
 	public void makeIdentityMatrix() {
-		int rowIterator;
-		int columnIterator;
-
-		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
-				if (rowIterator == columnIterator) {
+		for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+			for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+			{
+				if (rowIterator == columnIterator)
 					this.setValue(rowIterator, columnIterator, true);
-				} else {
+				else 
 					this.setValue(rowIterator, columnIterator, false);
-				}
 			}
 		}
 	}
 
 	public boolean isEmptyRelation() {
-		int rowIterator;
-		int columnIterator;
-
-		for (rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-			for (columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
-				if (this.getValue(rowIterator, columnIterator)) {
+		for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
+			for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+				if (this.getValue(rowIterator, columnIterator))
 					return false;
-				}
 			}
 		}
-
 		return true;
 	}
 
 	public boolean isTransitive() {
-		if (this.isEmptySet()) {
-			equivalenceClasses = new ArrayList<ArrayList<Integer>>();
+		if (this.isEmptySet())
 			return true;
-		} else {
-
+		
+		else 
+		{
 			// Iterate through matrix
 			for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+				{
 					// If A is related to B
-					if (this.getValue(rowIterator, columnIterator)) {
-						// Iterate through matrix to find possible relations of
-						// B
-						for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) {
-							if (this.getValue(columnIterator,
-									secondColumnIterator)) {
+					if (this.getValue(rowIterator, columnIterator)) 
+					{
+						// Iterate through matrix to find possible relations of B
+						for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) 
+						{
+							if (this.getValue(columnIterator, secondColumnIterator)) 
+							{
 								// If B is not related to C
-								if (!this.getValue(rowIterator,
-										secondColumnIterator)) {
+								if (!this.getValue(rowIterator, secondColumnIterator)) 
 									return false;
-								}
 							}
 						}
 					}
@@ -190,22 +196,27 @@ public class BinaryMatrix {
 	private ArrayList<ArrayList<Integer>> calculateEquivalenceClasses() {
 		ArrayList<ArrayList<Integer>> equivalenceClassesToReturn = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> listOfElementsAccountedFor = new ArrayList<Integer>();
-		equivalenceClassesToReturn.add(new ArrayList<Integer>());
 		int equivalenceClassCounter = 0;
+		
+		equivalenceClassesToReturn.add(new ArrayList<Integer>());
+		
 		// Iterate through matrix
 		for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
 
-			if ( !listOfElementsAccountedFor.contains(rowIterator))
+			if (!listOfElementsAccountedFor.contains(rowIterator))
 			{
-				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+				for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+				{
 					// If A is related to B
-					if (this.getValue(rowIterator, columnIterator)) {
-						equivalenceClassesToReturn.get(equivalenceClassCounter)
-						.add(columnIterator);
+					if (this.getValue(rowIterator, columnIterator)) 
+					{
+						//Add columnIterator to the current equivalence class and listOfElementsAccountedFor
+						equivalenceClassesToReturn.get(equivalenceClassCounter).add(columnIterator);
 						listOfElementsAccountedFor.add(columnIterator);
 					}
 				}
 				equivalenceClassCounter++;
+				//If we have not gone through all of the elements yet, make a new Equivalence Class
 				if(listOfElementsAccountedFor.size() != sizeOfMatrix)
 					equivalenceClassesToReturn.add(new ArrayList<Integer>());
 			}
@@ -224,30 +235,30 @@ public class BinaryMatrix {
 	}
 
 	public BinaryMatrix getTransitiveClosure() {
-		if (this.isTransitive()) {
+		if (this.isTransitive())
 			return this;
-		} else {
+		
+		else 
+		{
 			BinaryMatrix transitiveClosure = new BinaryMatrix(this);
 
-			while (!transitiveClosure.isTransitive()) {
+			while (!transitiveClosure.isTransitive()) 
+			{
 				// Iterate through matrix
 				for (int rowIterator = 0; rowIterator < sizeOfMatrix; rowIterator++) {
-					for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) {
+					for (int columnIterator = 0; columnIterator < sizeOfMatrix; columnIterator++) 
+					{
 						// If A is related to B
-						if (transitiveClosure.getValue(rowIterator,
-								columnIterator)) {
-							// Iterate through matrix to find possible relations
-							// of B
-							for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) {
-								if (transitiveClosure.getValue(columnIterator,
-										secondColumnIterator)) {
-									// If B is not related to C, make B related
-									// to C
-									if (!transitiveClosure.getValue(
-											rowIterator, secondColumnIterator)) {
-										transitiveClosure.setValue(rowIterator,
-												secondColumnIterator, true);
-									}
+						if (transitiveClosure.getValue(rowIterator, columnIterator)) 
+						{
+							// Iterate through matrix to find possible relations of B
+							for (int secondColumnIterator = 0; secondColumnIterator < sizeOfMatrix; secondColumnIterator++) 
+							{
+								if (transitiveClosure.getValue(columnIterator, secondColumnIterator)) 
+								{
+									// If B is not related to C, make B related to C
+									if (!transitiveClosure.getValue(rowIterator, secondColumnIterator)) 
+										transitiveClosure.setValue(rowIterator, secondColumnIterator, true);
 								}
 							}
 						}
@@ -257,11 +268,14 @@ public class BinaryMatrix {
 			return transitiveClosure;
 		}
 	}
-
+	/**
+ 	* Formats the Equivalence Classes nicely when printing.
+ 	*/
 	public void printEquivalenceClasses()
 	{
 		if (!this.isEquivalenceRelation())
 			return;
+		
 		else
 		{
 			String stringToPrint = "";
@@ -277,9 +291,10 @@ public class BinaryMatrix {
 			System.out.println(stringToPrint);
 		}
 	}
+	
 	public void printReport() {
 		System.out.println("The relation with the matrix:\n");
-		this.printBinary();
+		this.printBinaryMatrix();
 		System.out.println();
 
 		if (this.isReflexive())
@@ -313,7 +328,7 @@ public class BinaryMatrix {
 
 		if (!this.isTransitive()) {
 			System.out.println("The matrix of its transitive closure is:\n");
-			this.getTransitiveClosure().printBinary();
+			this.getTransitiveClosure().printBinaryMatrix();
 		}
 
 		System.out.println();
