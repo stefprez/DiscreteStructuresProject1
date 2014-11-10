@@ -1,14 +1,19 @@
+/**
+ * Stefano Prezioso
+ * COSC 314 Project 1
+ */
 package project;
 
 public class ProjectDriver {
 
 	public static void main(String[] args) {
-		String file;
+		String fileName;
 		BinaryMatrix binaryMatrix;
+		
 		for (int i = 1; i <= 6; i++)
 		{
-			file = "relation" + i + ".txt";
-			binaryMatrix = FileReader.readFileAndReturnBinaryMatrix(file);
+			fileName = "relation" + i + ".txt";
+			binaryMatrix = BinaryMatrixFileReader.readAndConvertFileInputToBinaryMatrix(fileName);
 			binaryMatrix.printReport();
 		}
 	}
